@@ -5,6 +5,8 @@ import 'package:mercury_aichat_sdk_example/routest.dart';
 import 'chatbot/chatbot_binding.dart';
 import 'chatbot/chatbot_view.dart';
 
+/// The application in this example uses the GetX package, allowing the injection process to be performed within the ChatbotBinding.
+
 void main() {
   runApp(const MyApp());
 }

@@ -1,7 +1,7 @@
 name: mercury_aichat_sdk
-description: A new Flutter plugin project.
+description: A flutter plugin that provides a chatbot feature that can be utilized in the form of GetXController and UseCase.
 version: 0.0.1
-homepage:
+homepage: https://github.com/adgorithmics-inc/mercury-aichat-sdk
 
 environment:
   sdk: '>=3.0.5 <4.0.0'

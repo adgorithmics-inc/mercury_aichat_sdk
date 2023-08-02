@@ -29,6 +29,8 @@ class ChatbotView extends GetView<ChatbotController> {
                 return NotificationListener(
                   child: ListView.separated(
                     reverse: true,
+
+                    /// The methods in the ChatBotController are adapted for a reversed ListView.
                     padding: const EdgeInsets.all(24.0),
                     itemCount: controller.data.length,
                     keyboardDismissBehavior:
@@ -132,6 +134,7 @@ class ChatItem extends StatelessWidget {
         crossAxisAlignment:
             me ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
+          /// The ChatItemView should be wrapped with GetBuilder(id: chatMessage.id) to display it gradually.
           GetBuilder(
             id: data.id,
             builder: (ChatbotController controller) {

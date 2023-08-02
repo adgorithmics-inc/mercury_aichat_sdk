@@ -5,6 +5,8 @@ import 'package:http/http.dart';
 class ChatbotBinding extends Bindings {
   @override
   void dependencies() {
+    /// In the chatbot package, the DataSource, Repo, UseCase, and Controller are created separately with a dependency chain (Controller -> UseCase -> Repo -> DataSource).
+    /// Dependency injection can be done here. And the Base URL and ChatBotId can also be set here
     Get.lazyPut<ChatbotRepo>(
       () => ChatbotRepo(
         client: Client(),

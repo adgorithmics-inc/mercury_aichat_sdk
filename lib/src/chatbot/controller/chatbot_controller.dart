@@ -26,11 +26,14 @@ class ChatbotController extends GetxController {
   ScrollController scrollController = ScrollController();
   bool botThinking = false;
 
+  /// Prompting the bot and displaying the responses on the view.
   Future<void> sendChat() async {
     String message = textController.text;
     if (message.isEmpty) return;
     textController.text = '';
     data.insert(0, ChatMessage.fromMyself(message));
+
+    /// Intended for a reversed ListView. The sent chat is inserted at the beginning to appear at the bottom position.
     setBotThinking(true);
     final result = await _sendMessageUsecase.invoke(message);
     setBotThinking(false);
@@ -38,12 +41,15 @@ class ChatbotController extends GetxController {
     result.when(
       onSuccess: (p0) {
         data.insert(0, p0);
+
+        /// Intended for a reversed ListView. The chat responses are inserted at the beginning to appear at the bottom position.
         showChatGradually(p0);
       },
       onFailure: (p0) {},
     );
   }
 
+  /// To display the list of messages.
   Future<void> getMessages() async {
     setLoading(true);
     final result = await _getMessagesUsecase.invoke();
@@ -58,6 +64,7 @@ class ChatbotController extends GetxController {
     setLoading(false);
   }
 
+  /// This method is called by the onInit method to ensure that the conversationId is already set, allowing the app to retrieve the list of messages or send a new message.
   Future<void> createConversation() async {
     setLoading(true);
     final result = await _conversationUsecase.invoke();
@@ -83,6 +90,7 @@ class ChatbotController extends GetxController {
     update();
   }
 
+  /// To display message replies gradually. The ChatItemView should be wrapped with GetBuilder(id: chatMessage.id).
   Future<void> showChatGradually(ChatMessage chat) async {
     String text = chat.content;
     chat.content = '';

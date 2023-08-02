@@ -7,9 +7,9 @@ class CreateConversationUsecase {
 
   CreateConversationUsecase(this._chatbotRepo);
 
+  /// It returns a list of messages and also sets the [conversationId] if it doesn't exist yet.
   Future<Resource<ChatMessageResponse>> invoke() async {
     String? conversationId = await _chatbotRepo.getSavedConversationId();
-
     if (conversationId == null) {
       final result = await _chatbotRepo.createConversation();
       String? error = result.getErrorOrNull();

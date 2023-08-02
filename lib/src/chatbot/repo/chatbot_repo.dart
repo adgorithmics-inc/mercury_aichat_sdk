@@ -28,8 +28,10 @@ class ChatbotRepo {
   final String noConversation = 'Conversation is not initiated yet';
 
   /// Returned response is chat from AI to reply your sent message
+  /// The [sendMessage] method can only be executed after the [createConversation] method is successfully performed, ensuring that the [conversationId] is not null.
   Future<Resource<ChatMessage>> sendMessage(String prompt) async {
     String? conversationId = await getSavedConversationId();
+
     if (conversationId == null) {
       return noConversation.toResourceFailure();
     }
@@ -53,9 +55,11 @@ class ChatbotRepo {
     }
   }
 
-  /// Get message history in single conversation id
+  /// Get message history in single [conversationId]
+  /// The [getMessages] method can only be executed after the [createConversation] method is successfully performed, ensuring that the [conversationId] is not null.
   Future<Resource<ChatMessageResponse>> getMessages() async {
     String? conversationId = await getSavedConversationId();
+
     if (conversationId == null) {
       return noConversation.toResourceFailure();
     }
