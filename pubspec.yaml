@@ -22,9 +22,3 @@ dev_dependencies:
   build_runner: ^2.2.0 # Create Mock
   mockito: ^5.3.2 # Create Mock
   analyzer: ^5.13.0
-
-flutter:
-  assets:
-   - assets/images/
-   - assets/icons/
-   - assets/lottie/
