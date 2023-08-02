@@ -1,0 +1,31 @@
+name: mercury_aichat_sdk_example
+description: Mercury AI-Chat SDK example project.
+
+publish_to: 'none' 
+
+environment:
+  sdk: '>=3.0.5 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  mercury_aichat_sdk:
+    # When depending on this package from a real application you should use:
+    #   mercury_aichat_sdk: ^x.y.z
+    # See https://dart.dev/tools/pub/dependencies#version-constraints
+    # The example app is bundled with the plugin so we use a path dependency on
+    # the parent directory to use the current plugin's version.
+    path: ../
+  cupertino_icons: ^1.0.2
+  get:
+  http:
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
