@@ -1,5 +1,4 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:http/http.dart';
 import 'package:mercury_aichat_sdk/src/chatbot/data_source/chat_local_data_source.dart';
 import 'package:mercury_aichat_sdk/src/chatbot/repo/chatbot_repo.dart';
 import 'package:mercury_aichat_sdk/src/chatbot/usecases/create_conversation_usecase.dart';
@@ -12,7 +11,6 @@ import 'package:mockito/annotations.dart';
 // dart run build_runner build
 
 @GenerateMocks([
-  Client,
   DioClient,
   ChatbotRepo,
   ChatLocalDataSource,
