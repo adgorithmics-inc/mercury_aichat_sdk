@@ -3,7 +3,9 @@ import 'package:dio/dio.dart';
 extension ResponseExtension on DioException {
   String get errorMessage {
     String result = '';
-    if (response != null) {
+    if (type == DioExceptionType.connectionError) {
+      return "Connection error";
+    } else if (response != null) {
       switch (response!.statusCode) {
         case 400:
           final stringBuffer = StringBuffer();
@@ -25,8 +27,6 @@ extension ResponseExtension on DioException {
         default:
           return 'Something went wrong :( please try again later.';
       }
-    } else if (type == DioExceptionType.connectionError) {
-      return "Connection error";
     } else {
       /// Something happened in setting up or sending the request that triggered an Error
       result = 'ERROR\n${requestOptions.uri.path.toString()}\n${toString()}';

@@ -46,11 +46,11 @@ class ChatbotRepo {
       ChatMessage data = ChatMessage.fromJson(response.data);
       return data.toResourceSuccess();
     } on DioException catch (e) {
-      // error from dio
+      /// API Error
       return e.errorMessage.toResourceFailure();
     } catch (e) {
-      // probably from the parsing
-      return "An error occurred while processing the data".toResourceFailure();
+      /// Model parsing error because API changed without notice.
+      return e.toString().toResourceFailure();
     }
   }
 
@@ -75,7 +75,7 @@ class ChatbotRepo {
     } on DioException catch (e) {
       return e.errorMessage.toResourceFailure();
     } catch (e) {
-      return "An error occurred while processing the data".toResourceFailure();
+      return e.toString().toResourceFailure();
     }
   }
 
@@ -94,7 +94,7 @@ class ChatbotRepo {
     } on DioException catch (e) {
       return e.errorMessage.toResourceFailure();
     } catch (e) {
-      return "An error occurred while processing the data".toResourceFailure();
+      return e.toString().toResourceFailure();
     }
   }
 
