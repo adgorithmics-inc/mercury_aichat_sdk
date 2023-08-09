@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart';
 import 'package:mercury_aichat_sdk/src/chatbot/models/chat_message_response.dart';
 import 'package:mercury_aichat_sdk/src/chatbot/repo/chatbot_repo.dart';
 import 'package:mockito/mockito.dart';
@@ -11,20 +11,18 @@ import '../json/message_reply.dart';
 
 void main() {
   group('Mock Chatbot Repo', () {
-    late MockClient mockClient;
+    late MockDioClient mockClient;
     late ChatbotRepo chatbotRepo;
     late MockChatLocalDataSource mockChatLocalDataSource;
-    const baseUrl = '';
     const chatBotId = 'botId';
     String conversationId = 'testConversationId';
 
     setUp(() {
-      mockClient = MockClient();
+      mockClient = MockDioClient();
       mockChatLocalDataSource = MockChatLocalDataSource();
 
       chatbotRepo = ChatbotRepo(
-        client: mockClient,
-        baseUrl: baseUrl,
+        dioClient: mockClient,
         chatBotId: chatBotId,
         dataSource: mockChatLocalDataSource,
       );
@@ -41,18 +39,17 @@ void main() {
         );
 
         when(mockClient.post(
-          Uri.https(
-            baseUrl,
-            chatbotRepo.sendChatUrl,
-          ),
-          body: {
+          chatbotRepo.sendChatUrl,
+          data: jsonEncode({
             'chatbot': chatBotId,
             'conversation': conversationId,
             'prompt': prompt,
-          },
+          }),
         )).thenAnswer((realInvocation) async {
-          return Future.value(
-              Response(json.encode(MessageReplyJson.json), 200));
+          return Future.value(Response(
+            data: MessageReplyJson.json,
+            requestOptions: RequestOptions(),
+          ));
         });
 
         final result = await chatbotRepo.sendMessage(prompt);
@@ -84,17 +81,18 @@ void main() {
         );
 
         when(mockClient.get(
-          Uri.https(
-            baseUrl,
-            chatbotRepo.messagesUrl,
-            {
-              'chatbot': chatBotId,
-              'conversation': conversationId,
-            },
-          ),
+          chatbotRepo.messagesUrl,
+          queryParameters: {
+            'chatbot': chatBotId,
+            'conversation': conversationId,
+          },
         )).thenAnswer((realInvocation) async {
           return Future.value(
-              Response(json.encode(GetMessagesJson().data), 200));
+            Response(
+              data: GetMessagesJson().data,
+              requestOptions: RequestOptions(),
+            ),
+          );
         });
 
         final result = await chatbotRepo.getMessages();

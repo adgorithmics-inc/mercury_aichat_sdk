@@ -1,26 +1,21 @@
 import 'dart:convert';
-
-import 'package:http/http.dart';
-
+import '../../core/dio_client.dart';
 import '../../resource.dart';
 import '../data_source/chat_local_data_source.dart';
 import '../models/chat_message_response.dart';
 import '../models/chatbot_model.dart';
 
 class ChatbotRepo {
-  final Client _client;
-  final String _baseUrl;
+  final DioClient _dioClient;
   final String _chatBotId;
   final ChatLocalDataSource dataSource;
 
   ChatbotRepo({
-    required Client client,
-    required String baseUrl,
+    required DioClient dioClient,
     required String chatBotId,
     required this.dataSource,
   })  : _chatBotId = chatBotId,
-        _baseUrl = baseUrl,
-        _client = client;
+        _dioClient = dioClient;
 
   final String sendChatUrl = '/api/v1/public-chat/chat/';
   final String messagesUrl = '/api/v1/public-chat/';
@@ -37,18 +32,15 @@ class ChatbotRepo {
     }
 
     try {
-      var response = await _client.post(
-        Uri.https(
-          _baseUrl,
-          sendChatUrl,
-        ),
-        body: {
+      final response = await _dioClient.post(
+        sendChatUrl,
+        data: jsonEncode({
           'chatbot': _chatBotId,
           'conversation': conversationId,
           'prompt': prompt.trim(),
-        },
+        }),
       );
-      ChatMessage data = ChatMessage.fromJson(json.decode(response.body));
+      ChatMessage data = ChatMessage.fromJson(response.data);
       return data.toResourceSuccess();
     } catch (e) {
       return '$e'.toResourceFailure();
@@ -64,18 +56,14 @@ class ChatbotRepo {
       return noConversation.toResourceFailure();
     }
     try {
-      var response = await _client.get(
-        Uri.https(
-          _baseUrl,
-          messagesUrl,
-          {
-            'chatbot': _chatBotId,
-            'conversation': conversationId,
-          },
-        ),
+      final response = await _dioClient.get(
+        messagesUrl,
+        queryParameters: {
+          'chatbot': _chatBotId,
+          'conversation': conversationId,
+        },
       );
-      ChatMessageResponse data =
-          ChatMessageResponse.fromJson(json.decode(response.body));
+      ChatMessageResponse data = ChatMessageResponse.fromJson(response.data);
       return data.toResourceSuccess();
     } catch (e) {
       return '$e'.toResourceFailure();
@@ -85,16 +73,13 @@ class ChatbotRepo {
   /// initialize new conversation with chatbot
   Future<Resource<ChatbotModel>> createConversation() async {
     try {
-      var response = await _client.post(
-        Uri.https(
-          _baseUrl,
-          messagesUrl,
-        ),
-        body: {
+      final response = await _dioClient.post(
+        messagesUrl,
+        data: jsonEncode({
           'chatbot': _chatBotId,
-        },
+        }),
       );
-      ChatbotModel data = ChatbotModel.fromJson(json.decode(response.body));
+      ChatbotModel data = ChatbotModel.fromJson(response.data);
       saveConversationId(data.id!);
       return data.toResourceSuccess();
     } catch (e) {
