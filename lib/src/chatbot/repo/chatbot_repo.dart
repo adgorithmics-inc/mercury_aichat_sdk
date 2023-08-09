@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'package:dio/dio.dart';
+import 'package:mercury_aichat_sdk/src/core/dio_exception_extension.dart';
+
 import '../../core/dio_client.dart';
 import '../../resource.dart';
 import '../data_source/chat_local_data_source.dart';
@@ -42,8 +45,12 @@ class ChatbotRepo {
       );
       ChatMessage data = ChatMessage.fromJson(response.data);
       return data.toResourceSuccess();
+    } on DioException catch (e) {
+      // error from dio
+      return e.errorMessage.toResourceFailure();
     } catch (e) {
-      return '$e'.toResourceFailure();
+      // probably from the parsing
+      return "An error occurred while processing the data".toResourceFailure();
     }
   }
 
@@ -65,8 +72,10 @@ class ChatbotRepo {
       );
       ChatMessageResponse data = ChatMessageResponse.fromJson(response.data);
       return data.toResourceSuccess();
+    } on DioException catch (e) {
+      return e.errorMessage.toResourceFailure();
     } catch (e) {
-      return '$e'.toResourceFailure();
+      return "An error occurred while processing the data".toResourceFailure();
     }
   }
 
@@ -82,8 +91,10 @@ class ChatbotRepo {
       ChatbotModel data = ChatbotModel.fromJson(response.data);
       saveConversationId(data.id!);
       return data.toResourceSuccess();
+    } on DioException catch (e) {
+      return e.errorMessage.toResourceFailure();
     } catch (e) {
-      return '$e'.toResourceFailure();
+      return "An error occurred while processing the data".toResourceFailure();
     }
   }
 
