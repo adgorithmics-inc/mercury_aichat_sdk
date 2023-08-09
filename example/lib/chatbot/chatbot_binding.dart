@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:mercury_aichat_sdk/mercury_aichat_sdk.dart';
 
+import '../core/dio_client.dart';
+
 class ChatbotBinding extends Bindings {
   @override
   void dependencies() {

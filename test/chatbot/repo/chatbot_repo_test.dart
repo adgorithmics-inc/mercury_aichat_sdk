@@ -11,14 +11,14 @@ import '../json/message_reply.dart';
 
 void main() {
   group('Mock Chatbot Repo', () {
-    late MockDioClient mockClient;
+    late MockDioForNative mockClient;
     late ChatbotRepo chatbotRepo;
     late MockChatLocalDataSource mockChatLocalDataSource;
     const chatBotId = 'botId';
     String conversationId = 'testConversationId';
 
     setUp(() {
-      mockClient = MockDioClient();
+      mockClient = MockDioForNative();
       mockChatLocalDataSource = MockChatLocalDataSource();
 
       chatbotRepo = ChatbotRepo(
