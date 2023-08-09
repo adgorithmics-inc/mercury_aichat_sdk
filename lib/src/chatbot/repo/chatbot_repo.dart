@@ -1,20 +1,20 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:mercury_aichat_sdk/src/core/dio_exception_extension.dart';
 
-import '../../core/dio_client.dart';
 import '../../resource.dart';
 import '../data_source/chat_local_data_source.dart';
 import '../models/chat_message_response.dart';
 import '../models/chatbot_model.dart';
 
 class ChatbotRepo {
-  final DioClient _dioClient;
+  final DioForNative _dioClient;
   final String _chatBotId;
   final ChatLocalDataSource dataSource;
 
   ChatbotRepo({
-    required DioClient dioClient,
+    required DioForNative dioClient,
     required String chatBotId,
     required this.dataSource,
   })  : _chatBotId = chatBotId,
