@@ -28,6 +28,7 @@ class ChatbotView extends GetView<ChatbotController> {
 
                 return NotificationListener(
                   child: ListView.separated(
+                    /// Use reverse: true because the latest chat is the very first chat item in the list
                     reverse: true,
 
                     /// The methods in the ChatBotController are adapted for a reversed ListView.
