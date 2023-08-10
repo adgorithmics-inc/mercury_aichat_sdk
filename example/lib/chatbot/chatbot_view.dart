@@ -12,10 +12,12 @@ class ChatbotView extends GetView<ChatbotController> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          /// Showing List of chats
           Expanded(
             child: GetBuilder(
               builder: (ChatbotController controller) {
                 if (controller.error.isNotEmpty) {
+                  /// Error Widget
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(24.0),
@@ -53,6 +55,8 @@ class ChatbotView extends GetView<ChatbotController> {
               },
             ),
           ),
+
+          /// Indicator that bot is processing the user chat
           GetBuilder(
             builder: (ChatbotController controller) {
               return AnimatedSize(
@@ -71,6 +75,8 @@ class ChatbotView extends GetView<ChatbotController> {
             },
           ),
           const SizedBox(height: 8.0),
+
+          /// User input Text Box
           Padding(
             padding: const EdgeInsets.only(
               bottom: 24.0,
@@ -117,6 +123,7 @@ class ChatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// Role name for user is "user" and role name for the bot is "assistant"
     bool me = data.role == Role.user;
     return Container(
       decoration: BoxDecoration(
