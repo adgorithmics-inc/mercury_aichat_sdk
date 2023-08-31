@@ -13,7 +13,7 @@ class ChatbotBinding extends Bindings {
       () => ChatbotRepo(
         dioClient: DioClient(
             options: BaseOptions(
-          baseUrl: 'https://staging-mercury-api-bwjdcapn3a-as.a.run.app',
+          baseUrl: 'https://mercury.adgo.io',
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 30),
         )),
