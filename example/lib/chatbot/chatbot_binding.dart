@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:mercury_aichat_sdk/mercury_aichat_sdk.dart';
 
+import '../core/dio_client.dart';
+
 class ChatbotBinding extends Bindings {
   @override
   void dependencies() {
@@ -11,7 +13,7 @@ class ChatbotBinding extends Bindings {
       () => ChatbotRepo(
         dioClient: DioClient(
             options: BaseOptions(
-          baseUrl: 'https://staging-mercury-api-bwjdcapn3a-as.a.run.app',
+          baseUrl: 'https://mercury.adgo.io',
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 30),
         )),

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:get/get.dart' as getx;
-import 'package:mercury_aichat_sdk/src/core/utilities.dart';
+import 'package:mercury_aichat_sdk_example/core/utilities.dart';
 
 class DioClient extends DioForNative {
   DioClient({BaseOptions? options}) : super(options) {
