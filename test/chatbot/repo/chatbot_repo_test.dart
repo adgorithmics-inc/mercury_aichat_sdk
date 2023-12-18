@@ -32,7 +32,7 @@ void main() {
       String prompt = 'hi';
 
       test('send chat success', () async {
-        when(mockChatLocalDataSource.getConversationId()).thenAnswer(
+        when(mockChatLocalDataSource.getConversationId(chatBotId)).thenAnswer(
           (realInvocation) async {
             return conversationId;
           },
@@ -59,7 +59,7 @@ void main() {
       });
 
       test('send chat fail: no conversation id saved', () async {
-        when(mockChatLocalDataSource.getConversationId()).thenAnswer(
+        when(mockChatLocalDataSource.getConversationId(chatBotId)).thenAnswer(
           (realInvocation) async {
             return null;
           },
@@ -74,7 +74,7 @@ void main() {
 
     group('Get Messages', () {
       test('get messages success', () async {
-        when(mockChatLocalDataSource.getConversationId()).thenAnswer(
+        when(mockChatLocalDataSource.getConversationId(chatBotId)).thenAnswer(
           (realInvocation) async {
             return conversationId;
           },
@@ -102,7 +102,7 @@ void main() {
       });
 
       test('get messages fail: no conversation id saved', () async {
-        when(mockChatLocalDataSource.getConversationId()).thenAnswer(
+        when(mockChatLocalDataSource.getConversationId(chatBotId)).thenAnswer(
           (realInvocation) async {
             return null;
           },
