@@ -14,13 +14,13 @@ class ChatLocalDataSource {
   }
 
   /// Save initiated conversation id to local storage
-  Future<void> setConversationId(String id) async {
-    await storage.write(key: 'botConversationId', value: id);
+  Future<void> setConversationId(String key, String id) async {
+    await storage.write(key: key, value: id);
   }
 
   /// Get initiated conversation id from local storage
   /// returns null if [setConversationId] is never called
-  Future<String?> getConversationId() async {
-    return await storage.read(key: 'botConversationId');
+  Future<String?> getConversationId(String key) async {
+    return await storage.read(key: key);
   }
 }

@@ -99,10 +99,10 @@ class ChatbotRepo {
   }
 
   Future<String?> getSavedConversationId() async {
-    return await dataSource.getConversationId();
+    return await dataSource.getConversationId(_chatBotId);
   }
 
   Future<void> saveConversationId(String id) async {
-    return await dataSource.setConversationId(id);
+    return await dataSource.setConversationId(_chatBotId, id);
   }
 }
