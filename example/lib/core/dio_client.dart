@@ -8,9 +8,14 @@ class DioClient extends DioForNative {
     interceptors.add(
       InterceptorsWrapper(
         onError: (DioException e, ErrorInterceptorHandler handler) {
+          getx.Get.log('$e');
+
           return handler.next(e);
         },
         onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
+          getx.Get.log(options.uri.toString());
+          getx.Get.log('${options.queryParameters}');
+
           return handler.next(options);
         },
         onResponse: (Response response, ResponseInterceptorHandler handler) {

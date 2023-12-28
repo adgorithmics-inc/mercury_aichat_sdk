@@ -17,7 +17,7 @@ class ChatbotBinding extends Bindings {
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 30),
         )),
-        chatBotId: '9f1196141ce84950ad05ced4b6db4d9e',
+        chatBotId: '13751256568b4b368649b8c297a77c45',
         dataSource: ChatLocalDataSource(),
       ),
     );
